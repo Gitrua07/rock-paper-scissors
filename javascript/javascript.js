@@ -107,6 +107,18 @@ function playGame() {
         //call playRound
         playRound(humanSelection, computerSelection);
     }
+
+    //if humanScore is more than computerScore then human wins
+    if (humanScore > computerScore){
+        console.log(`You win the game! You won ${humanScore} out of 5 matches.`);
+    //otherwise if humanScore is less than computerScore then computer wins
+    }else if (humanScore < computerScore){
+        console.log(`You lose! The computer won ${computerScore} out of 5 matches.`)
+    //otherwise noone wins
+    }else{
+        console.log(`Noone wins! There is a tie.`);
+    }
+
 }
 
 //Run main program
