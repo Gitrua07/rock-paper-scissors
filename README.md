@@ -1,6 +1,6 @@
 # rock-paper-scissors
 
-# Definition
+# Description
 A game of rock paper scissors you play using the JavaScript console. 
 The user plays five total games with the computer. At the end of the game, a winner will be declared.
 
