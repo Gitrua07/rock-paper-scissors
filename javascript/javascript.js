@@ -32,8 +32,12 @@
 
 //create a function called getHumanChoice
     function getHumanChoice(){
+    
     //prompt user to input an answer into human_action
+    let human_action = prompt("CHOOSE: Rock, Paper, Scissors");
+    
     //return human_action value
+    return human_action;
     }
 
 //create a function called playRound which has two
@@ -66,5 +70,5 @@
         //call playRound
     }
 
-    console.log(getComputerChoice());
+    console.log(getHumanChoice());
 
