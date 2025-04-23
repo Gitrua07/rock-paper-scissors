@@ -121,7 +121,5 @@ function playGame() {
 
 }
 
-//Run main program
-playGame();
-
-
+//Message to run playGame in console
+console.log("Write 'playGame()' to begin game.");
