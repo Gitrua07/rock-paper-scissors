@@ -1,3 +1,9 @@
+  //create a variable called humanScore initialized to 0
+  let humanScore = 0;
+
+  //create a variable called computerScore initialized to 0
+  let computerScore = 0;
+
 //create a function called getComputerChoice
 function getComputerChoice() {
 
@@ -28,26 +34,37 @@ function getComputerChoice() {
 }
 
 //create a function called getHumanChoice
-function getHumanChoice() {
+function getResult(humanScore, computerScore, result) {
 
-    //prompt user to input an answer into human_action
-    let humanAction = prompt();
+    let gameResult = document.createElement('p');
+    //if humanScore is more than computerScore then human wins
+    if (humanScore > computerScore) {
+        gameResult.textContent = `GAME WON: Your Score: ${humanScore} || Computer Score: ${computerScore}`;
+        //otherwise if humanScore is less than computerScore then computer wins
+    } else if (humanScore < computerScore) {
+        gameResult.textContent = `GAME OVER: Your Score: ${humanScore} || Computer Score: ${computerScore}`;
+        //otherwise noone wins
+    } else {
+        gameResult.textContent = `TIE GAME: Your Score: ${humanScore} || Computer Score: ${computerScore}`;
+    }
 
-    //return human_action value
-    return humanAction;
+    result.replaceChild(gameResult, result.lastChild);
 }
 
 //creates a function called playGame
-function playGame() {
-    //create a variable called humanScore initialized to 0
-    let humanScore = 0;
-
-    //create a variable called computerScore initialized to 0
-    let computerScore = 0;
+function playGame(humanSelection) {
+    let result = document.querySelector('#results');
 
     //create a function called playRound which has two
     // parameters humanChoice and computerChoice
     function playRound(humanChoice, computerChoice) {
+        
+        if(humanScore >= 5){
+            getResult(humanScore, computerScore, result);
+            humanScore = 0;
+            computerScore = 0;
+            return;
+        }
         //make humanChoice and computerChoice all lowercase with uppercase first letter
         let humanAction;
         let computerAction;
@@ -62,7 +79,7 @@ function playGame() {
         computerAction = firstLetter + sliceLetter;
 
         //create a variable called winner
-        let winner;
+        let winner = document.createElement('p');
 
         // if computerChoice is rock and humanChoice is scissors
         // OR
@@ -73,53 +90,29 @@ function playGame() {
             || (computerAction == "Paper" && humanAction == "Rock")
             || (computerAction == "Scissors" && humanAction == "Paper")) {
             //winner is computerChoice
-            winner = "Computer";
+            winner.textContent = `LOST ROUND - You: ${humanAction} || Computer: ${computerAction}`;
+            computerScore = computerScore + 1;
 
             //else if computerChoice is not equal to humanChoice
         } else if (computerAction != humanAction) {
             //winner is humanChoice
-            winner = "Human";
-        }
-
-        //if winner is humanChoice
-        if (winner == "Human") {
-            //output "You win! 'humanChoice' beats 'computerChoice'."
-            console.log(`You win! ${humanAction} beats ${computerAction}.`);
-            //humanScore is incremented
+            winner.textContent = `WON ROUND - You: ${humanAction} || Computer: ${computerAction}`;
             humanScore = humanScore + 1;
-            //if winner is computerChoice
-        } else if (winner == "Computer") {
-            //output "You lose! 'computerChoice beats 'humanChoice'."
-            console.log(`You lose! ${computerAction} beats ${humanAction}.`);
-            //computerScore is incremented
-            computerScore = computerScore + 1;
         } else {
-            console.log(`Noone wins! Both are ${humanAction}.`);
+            winner.textContent = `TIE ROUND - You: ${humanAction} || Computer: ${computerAction}`;
         }
+
+        result.replaceChild(winner, result.lastChild);
     }
 
-    //loop five times
-    for (let i = 0; i < 5; i++) {
-        //run getComputerChoice
-        let computerSelection = getComputerChoice();
-        //run getHumanChoice
-        let humanSelection = getHumanChoice();
-        //call playRound
-        playRound(humanSelection, computerSelection);
-    }
-
-    //if humanScore is more than computerScore then human wins
-    if (humanScore > computerScore){
-        console.log(`You win the game! You won ${humanScore} out of 5 matches.`);
-    //otherwise if humanScore is less than computerScore then computer wins
-    }else if (humanScore < computerScore){
-        console.log(`You lose! The computer won ${computerScore} out of 5 matches.`)
-    //otherwise noone wins
-    }else{
-        console.log(`Noone wins! There is a tie.`);
-    }
+    let computerSelection = getComputerChoice();
+    playRound(humanSelection, computerSelection);
+    console.log(humanScore);
 
 }
 
-//Message to run playGame in console
-console.log("Write 'playGame()' to begin game.");
+let btn = document.querySelector('#buttons');
+btn.addEventListener('click', (event) => {
+    let target = event.target;
+    playGame(target.id);
+});
