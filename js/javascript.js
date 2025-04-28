@@ -56,6 +56,7 @@ function playGame(humanSelection) {
     let result = document.querySelector('#results');
     let yourScoreClass = document.querySelector('#your-score');
     let computerScoreClass = document.querySelector('#computer-score');
+    let resultsAct = document.querySelector('#results-act');
 
     //create a function called playRound which has two
     // parameters humanChoice and computerChoice
@@ -75,6 +76,8 @@ function playGame(humanSelection) {
         
         //create a variable called winner
         let winner = document.createElement('p');
+        let humanAct = document.createElement('span');
+        let compAct = document.createElement('span');
 
         // if computerChoice is rock and humanChoice is scissors
         // OR
@@ -85,16 +88,26 @@ function playGame(humanSelection) {
             || (computerAction == "Paper" && humanAction == "Rock")
             || (computerAction == "Scissors" && humanAction == "Paper")) {
             //winner is computerChoice
-            winner.textContent = `LOST ROUND - You: ${humanAction} || Computer: ${computerAction}`;
+            winner.textContent = "LOST ROUND"
             computerScore = computerScore + 1;
             //else if computerChoice is not equal to humanChoice
         } else if (computerAction != humanAction) {
             //winner is humanChoice
-            winner.textContent = `WON ROUND - You: ${humanAction} || Computer: ${computerAction}`;
+            winner.textContent = `WON ROUND`;
             humanScore = humanScore + 1;
         } else {
-            winner.textContent = `TIE ROUND - You: ${humanAction} || Computer: ${computerAction}`;
+            winner.textContent = `TIE ROUND`;
         }
+
+        humanAct.textContent = `${humanAction}`;
+        compAct.textContent = `${computerAction}`;
+        
+        if(resultsAct.innerHTML != ''){
+            resultsAct.innerHTML = '';
+        }
+
+        resultsAct.appendChild(humanAct);
+        resultsAct.appendChild(compAct);
 
         if(result.innerHTML === ''){
             result.appendChild(winner);
